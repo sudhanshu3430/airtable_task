@@ -1,14 +1,17 @@
 require('dotenv').config()
 
+const BASE_ID = process.env.BASE_ID;
+const TABLE_ID = process.env.TABLE_ID;
+
 var Airtable = require("airtable");
 var base = new Airtable({
   apiKey: process.env.API_KEY,
-}).base("appx5Jofub2qik7xT");
+}).base(BASE_ID);
 
 
 //readRecords will fetch all records from the table
 function readRecords() {
-    base("tbloKkGqvqH1A33EU")
+    base(TABLE_ID)
   .select({
     view: "Grid view",
   })
@@ -35,7 +38,7 @@ function readRecords() {
 
 function updateRecords() {
     // update receives array of objects. Id will be for the record id and fields for updating the desired field.
-    base('tbloKkGqvqH1A33EU').update([
+    base(TABLE_ID).update([
         {
           "id": "recnFFu6N5UzDcmMP",
           "fields": {
@@ -58,7 +61,7 @@ function updateRecords() {
 
 // deleteRecord for deleting desired records destroy method receives array of records to delete multiple records
 function deleteRecord() {
-    base('tbloKkGqvqH1A33EU').destroy(['recnFFu6N5UzDcmMP'], function(err, deletedRecords) {
+    base(TABLE_ID).destroy(['recnFFu6N5UzDcmMP'], function(err, deletedRecords) {
         if (err) {
           console.error(err);
           return;
@@ -70,7 +73,7 @@ function deleteRecord() {
 
 // createRecord for inserting new records in the table create method also receives array of objects. Which can be used to add multiple records
 function createRecord() {
-    base('Table 1').create([
+    base(TABLE_ID).create([
         {
           "fields": {
             "First Name": "New name",
